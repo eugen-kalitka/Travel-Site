@@ -1,0 +1,11 @@
+.nav__nav-link:hover {
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#66ebebeb', endColorstr='#66ebebeb');
+}
+.home {
+	background: url(../img/header-bg.jpg) center 0 no-repeat;
+	 background-size: cover;
+    -ms-behavior: url(/backgroundsize.min.htc);
+}
+.nav__nav-link--footer:hover {
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ccffffff', endColorstr='#ccffffff');
+}
