@@ -1,0 +1,26 @@
+{
+  "name": "Travel-site",
+  "version": "0.0.1",
+  "description": "responsive template with weather widget",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eugen-kalitka/Travel-Site.git"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Eugen Kalitka",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/eugen-kalitka/Travel-Site/issues"
+  },
+  "dependencies": {
+    "express": "4.12.4",
+    "request": "2.57.0",
+    "rsvp": "~3.0.21"
+  }
+}

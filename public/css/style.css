@@ -58,6 +58,8 @@ html, body {
 }
 .page-wrapper {
     margin: auto;
+    position: relative;
+    overflow: hidden;
 }
 .global-width {
     padding: 0 6.1%;
@@ -77,7 +79,6 @@ input {
     background: url(../img/header-bg.jpg) center 0 no-repeat;
     background-size: cover;
     color: #fbfbfb;
-    position: relative;
 }
 
     .page-head {
@@ -188,6 +189,201 @@ input {
                 .email-wrap__submit:focus {
                     background-color: #438105;
                 }
+
+/* ----- WEATHER WIDGET ----- */
+
+.weather-widget {
+    position: absolute;
+    top: 75px;
+    right: 0;
+    display: none;
+}
+    .weather-widget__inner {
+        position: relative;
+        right: -100%;
+        transition: 300ms;
+    }
+    .weather-widget__inner.active {
+        right: 0;
+    }
+
+    .widget-button {
+        border: none;
+        background-color: #51a200;
+        text-transform: uppercase;
+        font-family: 'Open sans';
+        font-weight: bold;
+        color: #fff;
+        padding: 10px 20px;
+        transition: 300ms;
+
+        position: absolute;
+        top: 10px;
+        transform: rotate(90deg);
+        transform-origin: left top 0;
+    }
+    .widget-button:hover {
+         background-color: #438105;
+     }
+    .widget-body {
+        min-width: 200px;
+        min-height: 250px;
+        background: rgba(221,221,221, .8);
+        color: #545454;
+        border: 1px solid #51a200;
+        border-radius: 6px 0 0 6px;
+        padding: 20px 10px 35px;
+        position: relative;
+        transition: 1000ms ease;
+        text-align: center;
+    }
+
+    .fa-refresh {
+        color: #51a200;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+    }
+
+    .fa-refresh:hover {
+        color: #438105;
+        cursor: pointer;
+    }
+    .fa-refresh.loading {
+        animation-name: spin;
+        animation-duration: 500ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+    }
+    @keyframes spin {
+        from {
+            transform:rotate(0deg);
+        }
+        to {
+            transform:rotate(360deg);
+        }
+    }
+    .widget-body__error {
+        text-align: center;
+        padding-top: 80px;
+    }
+        .widget-body__error a {
+            color: #51a200;
+        }
+        .widget-body__error a:hover {
+            color: #438105;
+        }
+
+.widget-body__location,
+.widget-body__temp,
+.widget-body__time {
+    margin-bottom: 10px;
+}
+.widget-body__temp {
+    font-size: 1.8em;
+    padding: 0;
+}
+
+.widget-body__pic {
+    vertical-align: middle;
+}
+
+.widget-body__weather {
+    width: 90%;
+    margin: 0 auto 10px;
+    color: #545454;
+}
+.widget-body__weather td:nth-child(even) {
+    background: white;
+}
+.widget-body__weather td {
+    border: 1px solid #545454;
+    padding: 5px;
+}
+.widget-body__coords span {
+    color: #51a200;
+}
+.widget-body__coords span:hover {
+    color: #438105;
+    cursor: pointer;
+}
+
+
+/*LIGHTBOX*/
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 30, 0.7);
+}
+    .map {
+        width: 700px;
+        height: 500px;
+        background: #ebebeb;
+        margin: 100px auto 0;
+        position: relative;
+        padding: 50px 20px 20px;
+    }
+    .map__search {
+        position: absolute;
+        top: 15px;
+    }
+        .search__field {
+            height: 22px;
+            border: 1px solid #51a200;
+            padding: 0 5px;
+        }
+        .search__button {
+            border: none;
+            margin: 0;
+            color: #fff;
+            cursor: pointer;
+            font: .8125em 'Open sans', sans-serif;
+            text-transform: uppercase;
+            border-radius: 0 3px 3px 0;
+            background: #51a200;
+            height: 22px;
+            width: 75px;
+            padding: 0;
+            transition: 300ms;
+        }
+        .search__button:hover {
+            background: #438105;
+            cursor: pointer;
+        }
+        .search__submit {
+            background: #51a200;
+            color: #fff;
+            border-radius: 3px;
+            height: 22px;
+            font: .8125em 'Open sans', sans-serif;
+            text-transform: uppercase;
+        }
+        .search__submit:hover {
+            background: #438105;
+            cursor: pointer;
+        }
+    .map__close {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        color: #51a200;
+        transition: 200ms;
+        font-size: 1.5em !important;
+    }
+    .map__close:hover {
+        color: #438105;
+        cursor: pointer;
+    }
+    .map__canvas {
+        border: 1px solid #51a200;
+        width: 660px;
+        height: 430px;
+    }
+
 
 
 /* ----- CONTENT ----- */

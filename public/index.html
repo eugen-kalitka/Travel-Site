@@ -5,16 +5,52 @@
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <title>FANTASY TRAVEL</title>
     <link href="css/style.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/handlebars-v3.0.3.js"></script>
+
     <!--[if lte IE 8]>
         <link href="css/ie8.css" rel="stylesheet">
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="js/jquery-1.11.2.min.js"></script>
+
     <!--[if lte IE 9]>
         <script src="js/jquery.html5-placeholder-shim.js"></script>
     <![endif]-->
+    <script id="weatherTemplate" type="text/x-handlebars-template">
+        <h3 class="widget-body__location">{{name}}, {{sys.country}}</h3>
+        <h2 class="widget-body__temp">{{roundTemperature main.temp}} °C</h2>
+        <img src="http://openweathermap.org/img/w/{{weather.0.icon}}.png" class="widget-body__pic" width='50' height='50' alt=""/>
+        <span class="widget-body__cloudness">
+            {{weather.0.main}}
+        </span>
 
+        <p id="widgetTime" class="widget-body__time"></p>
+        <table class="widget-body__weather">
+            <tbody>
+            <tr>
+                <td>Cloudiness</td>
+                <td class="cloudiness">{{weather.0.description}}</td>
+                <td>Wind</td>
+                <td class="wind">{{wind.speed}} m/s, {{convertDegrees wind.deg}}</td>
+            </tr>
+            <tr>
+                <td>Pressure</td>
+                <td class="pressure">{{main.pressure}} hpa</td>
+                <td>Humidity</td>
+                <td class="humidity">{{main.humidity}} %</td>
+            </tr>
+            <tr>
+                <td>Sunrise</td>
+                <td class="sunrise">{{convertTime sys.sunrise}}</td>
+                <td>Sunset</td>
+                <td class="sunset">{{convertTime sys.sunset}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="widget-body__coords">Geo coordinates: <span id="coords">[{{coord.lat}}, {{coord.lon}}]</span></p>
+    </script>
 </head>
 <body>
 <div class="page-wrapper">
@@ -42,6 +78,15 @@
                 <input class="email-wrap__submit" type="submit" value="sign up" />
             </div>
         </form>
+    </div>
+
+    <div class="weather-widget" id="widgetOuter">
+        <div class="weather-widget__inner" id="widgetInner">
+            <button class="widget-button" id="widgetButton">today's weather</button>
+            <div class="widget-body" id="widgetBody">
+                <i class="fa fa-refresh fa-lg" title="refresh" id="refresh"></i>
+            </div>
+        </div>
     </div>
 
     <div class="content global-width">
@@ -109,6 +154,25 @@
     </footer>
 </div>
 
+<!--lightbox-->
+<div id="lightbox" class="lightbox">
+    <div class="map">
+        <div class="map__search search">
+            <input class="search__field" type="text" id="address" placeholder="enter a city name" />
+            <button class="search__button" id="findGeo">Search</button>
+            <button class="search__submit" id="submitGeo">Get weather</button>
+        </div>
+        <i class="fa fa-times map__close" id="closeMap"></i>
+        <div class='map__canvas' id="map-canvas"></div>
+    </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3&language=en"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
+<script src="js/rsvp-latest.min.js"></script>
 <script src="js/eqHeight.js"></script>
+<script src="js/weather-widget.js"></script>
+
 </body>
 </html>
