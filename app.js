@@ -5,7 +5,7 @@ var RSVP = require('rsvp');
 
 app.listen(8080);
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 app.enable('trust proxy');
 

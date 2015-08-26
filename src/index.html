@@ -4,20 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <title>FANTASY TRAVEL</title>
+
+    <!-- build:css css/combined.css -->
     <link href="css/style.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <!-- endbuild -->
+
+    <!-- build:js js/libs.js -->
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/handlebars-v3.0.3.js"></script>
+    <!-- endbuild -->
 
     <!--[if lte IE 8]>
+        <!-- build:css css/ie8.css -->
         <link href="css/ie8.css" rel="stylesheet">
+        <!-- endbuild -->
+
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <!--[if lte IE 9]>
+        <!-- build:js js/ie9.js -->
         <script src="js/jquery.html5-placeholder-shim.js"></script>
+        <!-- endbuild -->
     <![endif]-->
+
     <script id="weatherTemplate" type="text/x-handlebars-template">
         <h3 class="widget-body__location">{{name}}, {{sys.country}}</h3>
         <h2 class="widget-body__temp">{{roundTemperature main.temp}} °C</h2>
@@ -170,9 +182,12 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3&language=en"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
+
+<!-- build:js js/compilated.js -->
 <script src="js/rsvp-latest.min.js"></script>
 <script src="js/eqHeight.js"></script>
 <script src="js/weather-widget.js"></script>
+<!-- endbuild -->
 
 </body>
 </html>
