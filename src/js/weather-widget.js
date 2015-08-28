@@ -183,4 +183,12 @@ Handlebars.registerHelper('roundTemperature', function(value) {
             flag = false;
         }
     });
+
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#widgetOuter, #lightbox').length) {
+            if(widgetInner.classList.contains('active')) {
+                widgetInner.classList.remove('active');
+            }
+        }
+    });
 })();
