@@ -2,8 +2,9 @@ var express = require('express');
 var app = express();
 var request = require('request');
 var RSVP = require('rsvp');
+var port = process.env.PORT || 8080;
 
-app.listen(8080);
+app.listen(port);
 
 app.use(express.static('build'));
 

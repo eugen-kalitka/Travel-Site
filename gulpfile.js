@@ -104,6 +104,11 @@ gulp.task('build', function() {
     runSequence('clean', ['html', 'fonts', 'images', 'watch', 'copyHtc']);
 });
 
+gulp.task('heroku:prod', function() {
+    runSequence('clean', ['html', 'fonts', 'images', 'copyHtc']);
+});
+
 gulp.task('default', function(cb){
     runSequence('build', ['server'], cb);
 });
+
