@@ -170,7 +170,7 @@
 <div id="lightbox" class="lightbox">
     <div class="map">
         <div class="map__search search">
-            <input class="search__field" type="text" id="address" placeholder="enter a city name" />
+            <input class="search__field" type="text" id="address" autocomplete="off" placeholder="enter a city name" />
             <button class="search__button search__button--find" id="findGeo">Search</button>
             <button class="search__button search__button--submit" id="submitGeo">Get weather</button>
         </div>
@@ -179,7 +179,7 @@
     </div>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3&language=en"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&language=en"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
 

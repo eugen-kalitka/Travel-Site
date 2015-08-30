@@ -118,6 +118,9 @@ Handlebars.registerHelper('roundTemperature', function(value) {
             geocoder = new google.maps.Geocoder();
 
         google.maps.event.trigger(map, 'resize');
+        //autocomplete search field
+        var searchField = document.getElementById('address'),
+            autocomplete = new google.maps.places.Autocomplete(searchField);
 
         function detectLocation() {
             var promise = new RSVP.Promise(function(resolve, reject) {
@@ -170,6 +173,12 @@ Handlebars.registerHelper('roundTemperature', function(value) {
         addEventHandler(findGeo, 'click', function() {
             detectLocation();
         });
+
+        addEventHandler(searchField, 'keyup', function(e) {
+            if(e.which === 13 && this.value !== '') {
+                detectLocation();
+            }
+        });
     };
 
     var flag = 1;
@@ -185,7 +194,7 @@ Handlebars.registerHelper('roundTemperature', function(value) {
     });
 
     $(document).on('click', function(event) {
-        if (!$(event.target).closest('#widgetOuter, #lightbox').length) {
+        if (!$(event.target).closest('#widgetOuter, #lightbox, #address').length) {
             if(widgetInner.classList.contains('active')) {
                 widgetInner.classList.remove('active');
             }
