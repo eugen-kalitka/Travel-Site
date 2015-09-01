@@ -12,7 +12,17 @@ app.enable('trust proxy');
 
 app.get('/weather', function(req, res) {
     return new RSVP.Promise(function (resolve, reject) {
-        request('http://ipinfo.io', function (err, response, body) {
+        var ipAddr = req.headers["x-forwarded-for"];
+        if (ipAddr) {
+            var list = ipAddr.split(",");
+            ipAddr = list[list.length-1];
+        } else {
+            ipAddr = req.connection.remoteAddress;
+        }
+
+        var ipReq = 'http://ipinfo.io/' + ipAddr;
+
+        request(ipReq, function (err, response, body) {
             var str = JSON.parse(body).loc,
                 lat = str.substring(0, str.indexOf(',')),
                 lon = str.substring(str.indexOf(',') + 1);
