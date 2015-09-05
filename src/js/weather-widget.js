@@ -26,10 +26,21 @@ Handlebars.registerHelper('roundTemperature', function(value) {
 
     widgetOuter.style.display = 'block';
 
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('#widgetOuter, #lightbox').length) {
+            if(widgetInner.classList.contains('active')) {
+                setTimeout(function() {
+                    widgetInner.classList.remove('active');
+                }, 0);
+            }
+        }
+    });
+
     var generateErrMessage = function() {
         var p = document.createElement('p');
         p.classList.add('widget-body__error');
-        p.innerHTML = 'Sorry, we can\'t find the content you\'re looking.<br/> Please see the <a href="https://github.com/eugen-kalitka/Travel-Site/blob/master/README.md">README</a> file for details';
+        p.style.width = '300px';
+        p.innerHTML = 'Sorry, an error occurred while processing your request. Please try again or see <a href="https://github.com/eugen-kalitka/Travel-Site/blob/master/README.md">README</a> file for details';
         widgetBody.appendChild(p);
     };
 
@@ -54,15 +65,32 @@ Handlebars.registerHelper('roundTemperature', function(value) {
         }
     };
 
+    var fillLightboxBg = function(element) {
+        var body = document.body,
+            html = document.documentElement;
+
+        var height = Math.max( body.scrollHeight, body.offsetHeight,
+                html.clientHeight, html.scrollHeight, html.offsetHeight),
+            width = Math.max( body.scrollWidth, body.offsetWidth,
+                html.clientWidth, html.scrollWidth, html.offsetWidth);
+
+        element.style.width = width + 'px';
+        element.style.height = height + 'px';
+    };
+
     var processServerResponse = function(data) {
         // clean before inserting template
         removeChildExcept(widgetBody, 'refresh');
-        //inserting handlebars template
-        var template = Handlebars.compile(weatherTemplate.innerHTML);
-        $(widgetBody).append(template(data));
-        // inserting time with moment.js library
-        var curTime = moment().format("dddd, MMMM Do YYYY, HH:mm:ss");
-        $('#widgetTime').text('Get at ' + curTime);
+        if(data.cod === 200) {
+            //inserting handlebars template
+            var template = Handlebars.compile(weatherTemplate.innerHTML);
+            $(widgetBody).append(template(data));
+            // inserting time with moment.js library
+            var curTime = moment().format("dddd, MMMM Do YYYY, HH:mm:ss");
+            $('#widgetTime').text('Get at ' + curTime);
+        } else {
+            generateErrMessage();
+        }
         refresh.classList.remove('loading');
     };
 
@@ -89,9 +117,18 @@ Handlebars.registerHelper('roundTemperature', function(value) {
             });
         })
             .then(function(result) {
+                var resizeMap = true;
                 addEventHandler(document.querySelector('#coords'), 'click', function () {
-                    $(lightbox).fadeIn('slow');
-                    drawMap(result);
+                    fillLightboxBg(lightbox);
+                    $(lightbox).fadeIn('slow', function() {
+                        if(resizeMap) {
+                            $('.map').fadeIn('slow');
+                            setTimeout(function(){
+                                drawMap(result);
+                                resizeMap = false;
+                            }, 400);
+                        }
+                    });
                 });
             });
     };
@@ -121,6 +158,9 @@ Handlebars.registerHelper('roundTemperature', function(value) {
         //autocomplete search field
         var searchField = document.getElementById('address'),
             autocomplete = new google.maps.places.Autocomplete(searchField);
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            widgetInner.classList.add('active');
+        });
 
         function detectLocation() {
             var promise = new RSVP.Promise(function(resolve, reject) {
@@ -137,8 +177,8 @@ Handlebars.registerHelper('roundTemperature', function(value) {
                             map: map,
                             position: results[0].geometry.location
                         });
-                        var targetLat = results[0].geometry.location.A,
-                            targetLon = results[0].geometry.location.F;
+                        var targetLat = results[0].geometry.location.G,
+                            targetLon = results[0].geometry.location.K;
 
                         targetLat = parseFloat(targetLat.toFixed(6));
                         targetLon = parseFloat(targetLon.toFixed(6));
@@ -190,14 +230,6 @@ Handlebars.registerHelper('roundTemperature', function(value) {
                 getWeather('/weather', null, processServerResponse);
             }, 300);
             flag = false;
-        }
-    });
-
-    $(document).on('click', function(event) {
-        if (!$(event.target).closest('#widgetOuter, #lightbox, #address').length) {
-            if(widgetInner.classList.contains('active')) {
-                widgetInner.classList.remove('active');
-            }
         }
     });
 })();
