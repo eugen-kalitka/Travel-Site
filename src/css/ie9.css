@@ -1,0 +1,15 @@
+.widget-button {
+		top: 70px;
+		left: -99px;
+}
+.weather-widget__inner {
+	position: fixed;
+	right: auto;
+}
+.weather-widget__inner.active {
+	position: fixed;
+	right: 0px;
+}
+.lightbox {
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B21E1E1E,endColorstr=#B21E1E1E);
+}

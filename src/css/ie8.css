@@ -6,6 +6,17 @@
 	 background-size: cover;
     -ms-behavior: url(/backgroundsize.min.htc);
 }
+
+
 .nav__nav-link--footer:hover {
 	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#ccffffff', endColorstr='#ccffffff');
+}
+
+.widget-button {
+		filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+		-ms-filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+		left: -38px !important;
+	}
+.widget-body {
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CCDDDDDD,endColorstr=#CCDDDDDD);
 }
